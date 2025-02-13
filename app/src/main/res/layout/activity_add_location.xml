@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/editTextLatitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Latitud"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/editTextLongitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Longitud"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextLocationName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre de la Localización"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewSelectImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecciona una imagen"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"/>
+
+    <GridView
+        android:id="@+id/gridViewImages"
+        android:layout_width="match_parent"
+        android:layout_height="371dp"
+        android:layout_marginTop="8dp"
+        android:columnWidth="100dp"
+        android:horizontalSpacing="8dp"
+        android:numColumns="2"
+        android:verticalSpacing="8dp" />
+
+    <Button
+        android:id="@+id/buttonSaveLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar Localización"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
