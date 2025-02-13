@@ -1,4 +1,4 @@
-package com.example.localizacionapp
+package es.herreroaritz.examenpromborrador.PRINCIPAL
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import es.herreroaritz.examenpromborrador.LocationManagementActivity
 import es.herreroaritz.examenpromborrador.R
 import java.util.*
 
