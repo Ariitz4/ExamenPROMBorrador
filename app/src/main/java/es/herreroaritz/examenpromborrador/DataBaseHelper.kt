@@ -69,8 +69,82 @@ class DataBaseHelper {
             val nombre: String,
             val latitud: Double,
             val longitud: Double,
-            val imagen: Int
+            val imagen: String
         )
+
+        fun deleteLocation(context: Context, locationId: Int, callback: (Boolean) -> Unit) {
+            getConnection(context) { conn ->
+                conn?.let {
+                    try {
+                        val statement = it.prepareStatement("DELETE FROM localizaciones WHERE id = ?")
+                        statement.setInt(1, locationId)
+                        val rowsAffected = statement.executeUpdate()
+                        callback(rowsAffected > 0)
+                    } catch (e: SQLException) {
+                        e.printStackTrace()
+                        callback(false)
+                    } finally {
+                        it.close()
+                    }
+                } ?: callback(false)
+            }
+        }
+
+        fun getAllLocations(context: Context, callback: (List<Location>?) -> Unit) {
+            getConnection(context) { conn ->
+                conn?.let {
+                    val locations = mutableListOf<Location>()
+                    try {
+                        val statement = it.prepareStatement("SELECT * FROM localizaciones")
+                        val resultSet = statement.executeQuery()
+                        while (resultSet.next()) {
+                            val location = Location(
+                                id = resultSet.getInt("id"),
+                                nombre = resultSet.getString("nombre"),
+                                latitud = resultSet.getDouble("latitud"),
+                                longitud = resultSet.getDouble("longitud"),
+                                imagen = resultSet.getString("imagen") // Se obtiene el nombre de la imagen como String
+                            )
+                            locations.add(location)
+                        }
+                        callback(locations)
+                    } catch (e: SQLException) {
+                        e.printStackTrace()
+                        callback(null)
+                    } finally {
+                        it.close()
+                    }
+                } ?: callback(null)
+            }
+        }
+
+
+
+        fun saveLocation(context: Context, latitude: Double, longitude: Double, locationName: String, imageName: String, callback: (Boolean) -> Unit) {
+            getConnection(context) { connection ->
+                connection?.let {
+                    try {
+                        val query = "INSERT INTO localizaciones (latitud, longitud, nombre, imagen) VALUES (?, ?, ?, ?)"
+                        val statement = it.prepareStatement(query)
+                        statement.setDouble(1, latitude)
+                        statement.setDouble(2, longitude)
+                        statement.setString(3, locationName)
+                        statement.setString(4, imageName)
+
+                        val rowsInserted = statement.executeUpdate()
+                        callback(rowsInserted > 0)
+                    } catch (e: SQLException) {
+                        e.printStackTrace()
+                        callback(false)
+                    } finally {
+                        it.close()
+                    }
+                } ?: callback(false)
+            }
+        }
+
+
+
 
 
     }
